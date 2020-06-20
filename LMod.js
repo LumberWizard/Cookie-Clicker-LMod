@@ -9,7 +9,7 @@
 
     let Unlock = function (upgradeName) {
         Game.Unlock(upgradeName);
-        if (typeof Game.Upgrades[upgradeName] !== "undefined" && Game.Upgrades[upgrade]) {
+        if (typeof Game.Upgrades[upgradeName] !== "undefined" && Game.Upgrades[upgradeName]) {
             LModSave.Upgrades[upgradeName].unlocked = true;
             LModSaveConfig();
         }
