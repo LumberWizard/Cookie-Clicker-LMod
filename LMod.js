@@ -78,6 +78,7 @@
                         initUpgrade(upgrade);
                     }
                     else {
+                        console.log(upgrade.toString());
                         if (LModSave.Upgrades[upgrade.name].unlocked) Unlock(upgrade.name);
                         if (LModSave.Upgrades[upgrade.name].bought) Game.Upgrades[upgrade.name].bought = 1;
                     }
