@@ -7,10 +7,10 @@
         return upgrade;
     }
 
-    let Unlock = function (upgrade) {
-        Game.Unlock(upgrade);
-        if (typeof Game.Upgrades[upgrade] !== "undefined" && Game.Upgrades[upgrade]) {
-            LModSave.Upgrades[upgrade.name].unlocked = true;
+    let Unlock = function (upgradeName) {
+        Game.Unlock(upgradeName);
+        if (typeof Game.Upgrades[upgradeName] !== "undefined" && Game.Upgrades[upgrade]) {
+            LModSave.Upgrades[upgradeName].unlocked = true;
             LModSaveConfig();
         }
     }
