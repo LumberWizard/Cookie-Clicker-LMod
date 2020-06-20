@@ -1,5 +1,6 @@
 {
     let grimoire = Game.Objects['Wizard tower'].minigame;
+    let M = grimoire;
     let Upgrade = function (name, desc, price, icon, buyFunction) {
         let upgrade = new Game.Upgrade(name, desc, price, icon, buyFunction);
         upgrade.lModded = true;
@@ -127,7 +128,7 @@
     })
 
     let oldGrimoireGetFailChance = grimoire.getFailChance;
-    grimoire.getFailChance = Proxy(oldGrimoireGetFailChance, {
+    grimoire.getFailChance = new Proxy(oldGrimoireGetFailChance, {
         apply: function (target, thisArg, args) {
             let failChance = target.apply(thisArg, args);
             if (Game.Has('Wizardry adepts')) failChance *= 0.9;
