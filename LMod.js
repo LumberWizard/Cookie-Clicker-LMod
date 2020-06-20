@@ -97,7 +97,7 @@
 
     LModLoadConfig();
 
-    eval("grimoire.logic = " + grimoire.logic.toString().replace("M.magicPS=Math.max(0.002,Math.pow(M.magic/Math.max(M.magicM,100),0.5))*0.002;", "M.magicPS=Math.max(0.002,Math.pow(M.magic/Math.max(M.magicM,100),0.5))*0.002;\nif (Game.Has('Quick wizard')) M.magicPS *= 1.1;"));
+    eval("grimoire.logic = " + grimoire.logic.toString().replace("M.magicPS=Math.max(0.002,Math.pow(M.magic/Math.max(M.magicM,100),0.5))*0.002;", "M.magicPS=Math.max(0.002,Math.pow(M.magic/Math.max(M.magicM,100),0.5))*0.002;\nconsole.log('injection successful');\nif (Game.Has('Quick wizard')) M.magicPS *= 1.1;"));
 
     let oldGrimoireGetSpellCost = grimoire.getSpellCost;
     grimoire.getSpellCost = new Proxy(oldGrimoireGetSpellCost, {
