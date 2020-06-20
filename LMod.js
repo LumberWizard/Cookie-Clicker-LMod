@@ -135,6 +135,32 @@
             return failChance;
         }
     })
+
+    let oldLoadMod = Game.LoadMod;
+    Game.LoadMod = new Proxy(oldLoadMod, {
+        apply: function (target, thisArg, args) {
+            let id = url.split('/'); id = id[id.length - 1].split('.')[0];
+            target.apply(thisArg, args);
+            if (id === "CookieMonster") {
+                fixCookieMonsterGriomoireRefillTimer();
+            }
+        }
+    })
+
+    if (window.CM) {
+        fixCookieMonsterGriomoireRefillTimer();
+    }
+
+    function fixCookieMonsterGriomoireRefillTimer() {
+        let oldCMDispCalculateGriomoreRefillTime = CM.Disp.CalculateGriomoreRefillTime;
+        CM.Disp.CalculateGrimoireRefillTime = new Proxy(oldCMDispCalculateGriomoreRefillTime, {
+            apply: function (target, thisArg, args) {
+                let time = target.apply(thisArg, args);
+                if (Game.Has('Quick wizards')) time /= 1.1;
+                return time;
+            }
+        })
+    }
 }
 
 Game.Win("Third-party")
