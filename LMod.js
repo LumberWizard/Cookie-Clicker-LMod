@@ -10,7 +10,7 @@
     let Unlock = function (upgrade) {
         Game.Unlock(upgrade);
         if (typeof Game.Upgrades[upgrade] !== "undefined" && Game.Upgrades[upgrade]) {
-            LModSave.Upgrades[upgrade].unlocked = true;
+            LModSave.Upgrades[upgrade.name].unlocked = true;
             LModSaveConfig();
         }
     }
@@ -20,6 +20,7 @@
             let upgrade = target.apply(thisArg, args);
             if (upgrade) {
                 LModSave.Upgrades[thisArg.name].bought = true;
+                LModSaveConfig();
             }
             return upgrade;
         }
@@ -45,15 +46,15 @@
     LModSavePrefix = "LMod";
     LModSaveConfig = () => localStorage.setItem(LModSavePrefix, JSON.stringify(LModSave));
 
+    function initUpgrade(upgrade) {
+        LModSave.Upgrades[upgrade.name] = {};
+        LModSave.Upgrades[upgrade.name].unlocked = false;
+        LModSave.Upgrades[upgrade.name].bought = false;
+    }
+
     LModSaveDefault = function () {
         if (typeof LModSave === 'undefined') {
             LModSave = {};
-        }
-
-        function initUpgrade(upgrade) {
-            LModSave.Upgrades[upgrade.name] = {};
-            LModSave.Upgrades[upgrade.name].unlocked = false;
-            LModSave.Upgrades[upgrade.name].bought = false;
         }
 
         LModSave.Upgrades = {};
@@ -133,15 +134,18 @@
 
     Game.LoadMod = new Proxy(Game.LoadMod, {
         apply: function (target, thisArg, args) {
+            console.log("mod loaded");
             let id = url.split('/'); id = id[id.length - 1].split('.')[0];
             target.apply(thisArg, args);
             if (id === "CookieMonster") {
+                console.log("cm loading after lmod");
                 fixCookieMonsterGriomoireRefillTimer();
             }
         }
     })
 
     if (window.CM) {
+        console.log("CM found loaded");
         fixCookieMonsterGriomoireRefillTimer();
     }
 
