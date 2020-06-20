@@ -151,7 +151,7 @@
     }
 
     function fixCookieMonsterGriomoireRefillTimer() {
-        CM.Disp.CalculateGrimoireRefillTime = new Proxy(CM.Disp.CalculateGriomoreRefillTime, {
+        CM.Disp.CalculateGrimoireRefillTime = new Proxy(CM.Disp.CalculateGrimoireRefillTime, {
             apply: function (target, thisArg, args) {
                 let time = target.apply(thisArg, args);
                 if (Game.Has('Quick wizards')) time /= 1.1;
