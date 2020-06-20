@@ -15,8 +15,7 @@
         }
     }
 
-    let oldBuy = Game.Upgrade.prototype.buy;
-    Game.Upgrade.prototype.buy = new Proxy(oldBuy, {
+    Game.Upgrade.prototype.buy = new Proxy(Game.Upgrade.prototype.buy, {
         apply: function (target, thisArg, args) {
             let upgrade = target.apply(thisArg, args);
             if (upgrade) {
@@ -87,8 +86,7 @@
         else LModSaveDefault();
     }
 
-    let oldReset = Game.HardReset;
-    Game.HardReset = new Proxy(oldReset, {
+    Game.HardReset = new Proxy(Game.HardReset, {
         apply: function (target, thisArg, args) {
             if (args[0] == 2) LModSaveDefault();
             return target.apply(thisArg, args);
@@ -99,8 +97,7 @@
 
     eval("grimoire.logic = " + grimoire.logic.toString().replace("M.magicPS=Math.max(0.002,Math.pow(M.magic/Math.max(M.magicM,100),0.5))*0.002;", "M.magicPS=Math.max(0.002,Math.pow(M.magic/Math.max(M.magicM,100),0.5))*0.002;\nif (Game.Has('Quick wizards')) M.magicPS *= 1.1;"));
 
-    let oldGrimoireGetSpellCost = grimoire.getSpellCost;
-    grimoire.getSpellCost = new Proxy(oldGrimoireGetSpellCost, {
+    grimoire.getSpellCost = new Proxy(grimoire.getSpellCost, {
         apply: function (target, thisArg, args) {
             let cost = target.apply(thisArg, args);
             if (Game.Has('Efficient spells')) cost *= 0.95;
@@ -108,8 +105,7 @@
         }
     })
 
-    let oldGrimoireGetSpellCostBreakdown = grimoire.getSpellCostBreakdown;
-    grimoire.getSpellCostBreakdown = new Proxy(oldGrimoireGetSpellCostBreakdown, {
+    grimoire.getSpellCostBreakdown = new Proxy(grimoire.getSpellCostBreakdown, {
         apply: function (target, thisArg, args) {
             if (!Game.Has('Efficient spells')) return target.apply(thisArg, args);
             let spell = args[0];
@@ -127,8 +123,7 @@
         }
     })
 
-    let oldGrimoireGetFailChance = grimoire.getFailChance;
-    grimoire.getFailChance = new Proxy(oldGrimoireGetFailChance, {
+    grimoire.getFailChance = new Proxy(grimoire.getFailChance, {
         apply: function (target, thisArg, args) {
             let failChance = target.apply(thisArg, args);
             if (Game.Has('Wizardry adepts')) failChance *= 0.9;
@@ -136,8 +131,7 @@
         }
     })
 
-    let oldLoadMod = Game.LoadMod;
-    Game.LoadMod = new Proxy(oldLoadMod, {
+    Game.LoadMod = new Proxy(Game.LoadMod, {
         apply: function (target, thisArg, args) {
             let id = url.split('/'); id = id[id.length - 1].split('.')[0];
             target.apply(thisArg, args);
@@ -152,8 +146,7 @@
     }
 
     function fixCookieMonsterGriomoireRefillTimer() {
-        let oldCMDispCalculateGriomoreRefillTime = CM.Disp.CalculateGriomoreRefillTime;
-        CM.Disp.CalculateGrimoireRefillTime = new Proxy(oldCMDispCalculateGriomoreRefillTime, {
+        CM.Disp.CalculateGrimoireRefillTime = new Proxy(CM.Disp.CalculateGriomoreRefillTime, {
             apply: function (target, thisArg, args) {
                 let time = target.apply(thisArg, args);
                 if (Game.Has('Quick wizards')) time /= 1.1;
