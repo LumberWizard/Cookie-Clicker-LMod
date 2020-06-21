@@ -136,7 +136,7 @@
     Game.LoadMod = new Proxy(Game.LoadMod, {
         apply: function (target, thisArg, args) {
             console.log("mod loaded");
-            let id = url.split('/'); id = id[id.length - 1].split('.')[0];
+            let id = args[0].split('/'); id = id[id.length - 1].split('.')[0];
             target.apply(thisArg, args);
             if (id === "CookieMonster") {
                 console.log("cm loading after lmod");
@@ -145,7 +145,7 @@
         }
     })
 
-    if (window.CM) {
+    if (CM) {
         console.log("CM found loaded");
         fixCookieMonsterGriomoireRefillTimer();
     }
