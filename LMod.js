@@ -142,7 +142,7 @@
         }
     })
 
-    if (CM) {
+    if (typeof CM !== 'undefined') {
         fixCookieMonsterGriomoireRefillTimer();
     }
 
