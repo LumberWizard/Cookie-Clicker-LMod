@@ -34,9 +34,9 @@
     new Upgrade("Wizardry adepts", "Spells have a <b>10%<b> smaller chance to backfire.", 1650000000000000000000000000000, [29, 11]);
 
     let i = 0;
-    Game.Upgrades['Quick wizards'].order = 1485 + i++;
-    Game.Upgrades['Efficient spells'].order = 1485 + i++;
-    Game.Upgrades['Wizardry adepts'].order = 1485 + i++;
+    Game.Upgrades['Quick wizards'].order = 586 + i++;
+    Game.Upgrades['Efficient spells'].order = 586 + i++;
+    Game.Upgrades['Wizardry adepts'].order = 586 + i++;
 
     Game.customChecks = Game.customChecks.concat([
         () => { if (grimoire.spellsCastTotal >= 9 && tower.level >= 2) Game.Unlock('Quick wizards') },
