@@ -19,7 +19,7 @@
     Game.Upgrade.prototype.buy = new Proxy(Game.Upgrade.prototype.buy, {
         apply: function (target, thisArg, args) {
             let upgrade = target.apply(thisArg, args);
-            if (upgrade) {
+            if (upgrade && upgrade.lModded) {
                 LModSave.Upgrades[thisArg.name].bought = true;
                 LModSaveConfig();
             }
