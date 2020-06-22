@@ -1,5 +1,6 @@
 {
-    let grimoire = Game.Objects['Wizard tower'].minigame;
+    let tower = Game.Objects['Wizard tower']
+    let grimoire = tower.minigame;
     let M = grimoire;
     let Upgrade = function (name, desc, price, icon, buyFunction) {
         let upgrade = new Game.Upgrade(name, desc, price, icon, buyFunction);
@@ -38,9 +39,9 @@
     Game.Upgrades['Wizardry adepts'].order = 1485 + i++;
 
     Game.customChecks = Game.customChecks.concat([
-        () => { if (grimoire.spellsCastTotal >= 9) Game.Unlock('Quick wizards') },
-        () => { if (grimoire.spellsCastTotal >= 99) Game.Unlock('Efficient spells') },
-        () => { if (grimoire.spellsCastTotal >= 999) Game.Unlock('Wizardry adepts') }
+        () => { if (grimoire.spellsCastTotal >= 9 && tower.level >= 2) Game.Unlock('Quick wizards') },
+        () => { if (grimoire.spellsCastTotal >= 99 && tower.level >= 5) Game.Unlock('Efficient spells') },
+        () => { if (grimoire.spellsCastTotal >= 999 && tower.level >= 9) Game.Unlock('Wizardry adepts') }
     ]);
 
     LModSavePrefix = "LMod";
